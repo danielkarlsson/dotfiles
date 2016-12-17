@@ -94,3 +94,11 @@ source $DOTFILES/alias.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Map vi and vim commands to run nvim
+alias vim="nvim"
+alias vi="nvim"
+alias oldvim="vim"
+
+# yarn
+export PATH="$PATH:`yarn global bin`"
