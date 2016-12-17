@@ -14,6 +14,8 @@ Plug 'tell-k/vim-autopep8'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ap/vim-css-color'
 Plug 'othree/yajs.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'ElmCast/elm-vim'
 
 call plug#end()
 
@@ -21,16 +23,16 @@ syntax enable
 filetype plugin indent on
 
 " colors
+let g:seoul256_background = 235
 colo seoul256
-set background=light
-
+set background=dark
 " deoplete
 let g:deoplete#enable_at_startup = 1
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'sol'
+let g:airline_theme = 'seoul256'
 
 " neomake
 let g:neomake_python_python_maker = {
@@ -54,7 +56,7 @@ let g:indent_guides_guide_size=1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#dddddd   ctermbg=3
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#dddddd ctermbg=4
-autocmd VimEnter * :IndentGuidesEnable
+"autocmd VimEnter * :IndentGuidesEnable
 
 " disable stuff
 noremap <Up> <NOP>
@@ -74,3 +76,5 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set cc=80
+
+nmap <silent> <C-z> :NERDTreeToggle<CR>
