@@ -94,3 +94,7 @@ source $DOTFILES/alias.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+if type nvim > /dev/null 2>&1; then
+    alias vim='nvim'
+fi
