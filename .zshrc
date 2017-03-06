@@ -56,7 +56,7 @@ plugins=(git git-extras brew docker node npm osx pip pod python golang)
 export GOPATH=$HOME/Developer/go
 export GOBIN=$GOPATH/bin
 export DOTFILES=$HOME/.dotfiles
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$GOBIN:$HOME/Library/Haskell/bin:$HOME/.dotfiles/scripts:$PATH"
+export PATH="$PATH:/usr/bin:/usr/local/bin:/bin:/usr/sbin:/sbin:$GOBIN:$HOME/Library/Haskell/bin:$HOME/.dotfiles/scripts"
 export ANDROID_HOME=/usr/local/Cellar/android-sdk/24.4.1_1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -67,6 +67,18 @@ export LANGUAGE=en_US.UTF-8
 source $ZSH/oh-my-zsh.sh
 source $DOTFILES/fn.sh
 source $DOTFILES/alias.sh
+
+# Handle auto update
+
+last_dotfiles_update=$(cat ~/.dotfilesupdate || echo 0)
+current_time=$(date +%s)
+update_time_diff=$(($current_time - $last_dotfiles_update))
+
+if [ $update_time_diff -gt 3600 ]; then
+    echo "Last update was ${update_time_diff}s ago. Updating dotfiles..."
+    (cd ~/.dotfiles && git pull)
+    echo $current_time > ~/.dotfilesupdate
+fi
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
