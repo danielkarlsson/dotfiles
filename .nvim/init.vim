@@ -32,6 +32,8 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'airblade/vim-gitgutter'
 Plug 'keith/swift.vim'
+Plug 'colepeters/spacemacs-theme.vim'
+Plug 'mhartington/oceanic-next'
 
 call plug#end()
 
@@ -44,7 +46,7 @@ if (has("termguicolors"))
 endif
 
 set background=dark
-colorscheme spacemacs-theme
+colorscheme OceanicNext
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -53,7 +55,7 @@ let g:deoplete#sources#jedi#show_docstring = 1
 " airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'zenburn'
+let g:airline_theme = 'oceanicnext'
 
 " neomake
 let g:neomake_python_python_maker = {
