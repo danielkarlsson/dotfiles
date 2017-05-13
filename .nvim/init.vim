@@ -3,54 +3,59 @@ let $LANG = 'en'
 
 call plug#begin('~/.config/nvim/plugged')
 
+" Autocompletion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi'
+Plug 'zchee/deoplete-go'
+Plug 'steelsojka/deoplete-flow'
+
+" Utils
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'junegunn/seoul256.vim'
 Plug 'neomake/neomake'
-"Plug 'jiangmiao/auto-pairs'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'zchee/deoplete-jedi'
-Plug 'tell-k/vim-autopep8'
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ap/vim-css-color'
-Plug 'othree/yajs.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'leafgarland/typescript-vim'
-Plug 'digitaltoad/vim-pug'
-Plug 'OmniSharp/omnisharp-vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'elmcast/elm-vim'
-Plug 'colepeters/spacemacs-theme.vim'
-Plug 'ElmCast/elm-vim'
-Plug 'udalov/kotlin-vim'
-Plug 'schickling/vim-bufonly'
-Plug 'othree/es.next.syntax.vim'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'jiangmiao/auto-pairs'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tell-k/vim-autopep8'
+Plug 'schickling/vim-bufonly'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-surround'
+
+" Airline and guides
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
-Plug 'keith/swift.vim'
-Plug 'colepeters/spacemacs-theme.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+
+" Languages
+Plug 'othree/yajs.vim'
+Plug 'othree/es.next.syntax.vim'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'fatih/vim-go'
+
+" Syntax
 Plug 'mhartington/oceanic-next'
+
 
 call plug#end()
 
 syntax enable
 filetype plugin indent on
-
-" colors
-if (has("termguicolors"))
-  set termguicolors
-endif
-
-set background=dark
 colorscheme OceanicNext
+
+if (has("termguicolors"))
+    set termguicolors
+endif
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
+
+" nerdtree
+map <C-t> :NERDTreeToggle<CR>
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
@@ -107,8 +112,6 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set cc=80
-
-map <C-z> :NERDTreeToggle<CR>
 
 " elm
 let g:elm_format_autosave = 1

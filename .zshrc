@@ -107,9 +107,7 @@ fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
   source '/Users/hanneslohmander/Downloads/google-cloud-sdk/path.zsh.inc'
-fi
   source '/Users/hanneslohmander/Downloads/google-cloud-sdk/completion.zsh.inc'
-fi
 
 if type nvim > /dev/null 2>&1; then
     alias vim='nvim'
