@@ -7,6 +7,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'zchee/deoplete-go'
+Plug 'carlitux/deoplete-ternjs'
 Plug 'steelsojka/deoplete-flow'
 
 " Utils
@@ -21,8 +22,10 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tell-k/vim-autopep8'
 Plug 'schickling/vim-bufonly'
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
+Plug 'sbdchd/neoformat'
+
 
 " Airline and guides
 Plug 'vim-airline/vim-airline'
@@ -31,10 +34,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'nathanaelkane/vim-indent-guides'
 
 " Languages
-Plug 'othree/yajs.vim'
-Plug 'othree/es.next.syntax.vim'
+Plug 'pangloss/vim-javascript'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'fatih/vim-go'
+Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'reasonml/vim-reason'
 
 " Syntax
 Plug 'mhartington/oceanic-next'
@@ -53,6 +57,11 @@ endif
 " deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
+let g:deoplete#file#enable_buffer_path = 1
+let g:deoplete#auto_complete_start_length = 1
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.ocaml = '[.\w]+'
+let g:deoplete#omni#input_patterns.reason = '[.\w]+'
 
 " nerdtree
 map <C-t> :NERDTreeToggle<CR>
@@ -62,14 +71,46 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'oceanicnext'
 
+" neoformat
+"
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * Neoformat
+augroup END
+
+let g:neoformat_enabled_python = ['yapf']
+let g:neoformat_enabled_javascript = ['prettier']
+
 " neomake
 let g:neomake_python_python_maker = {
     \ 'exe': 'python3',
     \ }
 
-let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_logfile=$HOME.'/.vim/log/neomake.log'
+let g:neomake_javascript_enabled_makers = ['flow']
 
 autocmd! BufWritePost * Neomake
+
+" javascript
+"
+let g:deoplete#sources#flow#flow_bin = 'flow'
+
+function! StrTrim(txt)
+  return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+endfunction
+
+let g:flow_path = StrTrim(system('PATH=$(npm bin):$PATH && which flow'))
+
+if g:flow_path != 'flow not found'
+  let g:deoplete#sources#flow#flow_bin = g:flow_path
+endif
+
+" reason
+
+autocmd FileType reason map <buffer> <D-M> :ReasonPrettyPrint<Cr>
+
+let g:neomake_reason_enabled_makers = ['merlin']
+let g:vimreason_extra_args_expr_reason = '"--print-width 80"'
 
 " neosnippet
 
@@ -84,14 +125,9 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-
 " git gutter
 
 let g:gitgutter_updatetime = 250
-
-" autopep8
-let g:autopep8_disable_show_diff = 1
-autocmd BufWritePre *.py :Autopep8
 
 " ctrl p
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.git\|deps\|_build\|\v\.(o|hi)$'
