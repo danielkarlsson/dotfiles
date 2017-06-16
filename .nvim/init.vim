@@ -64,7 +64,7 @@ let g:deoplete#omni#input_patterns.ocaml = '[.\w]+'
 let g:deoplete#omni#input_patterns.reason = '[.\w]+'
 
 " nerdtree
-map <C-t> :NERDTreeToggle<CR>
+map <C-z> :NERDTreeToggle<CR>
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
@@ -151,4 +151,3 @@ set cc=80
 
 " elm
 let g:elm_format_autosave = 1
-nmap <silent> <C-z> :NERDTreeToggle<CR>
