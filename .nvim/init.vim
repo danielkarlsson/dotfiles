@@ -86,7 +86,7 @@ let g:neomake_python_python_maker = {
     \ 'exe': 'python3',
     \ }
 
-let g:neomake_logfile=$HOME.'/.vim/log/neomake.log'
+let g:neomake_logfile=$HOME.'/.dotfiles/.nvim/log/neomake.log'
 let g:neomake_javascript_enabled_makers = ['flow']
 
 autocmd! BufWritePost * Neomake
