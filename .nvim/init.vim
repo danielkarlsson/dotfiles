@@ -39,6 +39,7 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'fatih/vim-go'
 Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'reasonml/vim-reason'
+Plug 'mxw/vim-jsx'
 
 " Syntax
 Plug 'mhartington/oceanic-next'
@@ -104,6 +105,10 @@ let g:flow_path = StrTrim(system('PATH=$(npm bin):$PATH && which flow'))
 if g:flow_path != 'flow not found'
   let g:deoplete#sources#flow#flow_bin = g:flow_path
 endif
+
+" vim-jsx
+
+let g:jsx_ext_required = 0
 
 " reason
 
