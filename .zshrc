@@ -109,14 +109,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 #  source '/Users/hanneslohmander/Downloads/google-cloud-sdk/path.zsh.inc'
 #  source '/Users/hanneslohmander/Downloads/google-cloud-sdk/completion.zsh.inc'
 
-if type nvim > /dev/null 2>&1; then
-    alias vim='nvim'
-fi
-
-# Map vi and vim commands to run nvim
-alias vim="nvim"
-alias vi="nvim"
-alias oldvim="vim"
-
 # yarn
 export PATH="$PATH:`yarn global bin`"

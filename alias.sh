@@ -1,6 +1,13 @@
 #!/bin/bash
 # alias.sh
 
+# NVim
+alias vim="nvim"
+alias vi="nvim"
+
+# Kubectl
+alias kc="kubectl"
+
 # Emacs
 alias em="emacs -nw"
 
