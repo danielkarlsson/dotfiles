@@ -40,6 +40,8 @@ Plug 'fatih/vim-go'
 Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'reasonml/vim-reason'
 Plug 'mxw/vim-jsx'
+Plug 'vim-scripts/smarty-syntax'
+Plug 'mustache/vim-mustache-handlebars'
 
 " Syntax
 Plug 'mhartington/oceanic-next'
