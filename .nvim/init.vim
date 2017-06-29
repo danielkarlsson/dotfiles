@@ -3,66 +3,119 @@ let $LANG = 'en'
 
 call plug#begin('~/.config/nvim/plugged')
 
+" Autocompletion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi'
+Plug 'zchee/deoplete-go'
+Plug 'carlitux/deoplete-ternjs'
+Plug 'steelsojka/deoplete-flow'
+
+" Utils
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'junegunn/seoul256.vim'
 Plug 'neomake/neomake'
-"Plug 'jiangmiao/auto-pairs'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'zchee/deoplete-jedi'
-Plug 'tell-k/vim-autopep8'
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ap/vim-css-color'
-Plug 'othree/yajs.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'leafgarland/typescript-vim'
-Plug 'digitaltoad/vim-pug'
-Plug 'OmniSharp/omnisharp-vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'elmcast/elm-vim'
-Plug 'colepeters/spacemacs-theme.vim'
-Plug 'ElmCast/elm-vim'
-Plug 'udalov/kotlin-vim'
-Plug 'schickling/vim-bufonly'
-Plug 'othree/es.next.syntax.vim'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'jiangmiao/auto-pairs'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tell-k/vim-autopep8'
+Plug 'schickling/vim-bufonly'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
+Plug 'sbdchd/neoformat'
+
+
+" Airline and guides
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
-Plug 'keith/swift.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+
+" Languages
+Plug 'pangloss/vim-javascript'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'fatih/vim-go'
+Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'reasonml/vim-reason'
+Plug 'mxw/vim-jsx'
+
+" Syntax
+Plug 'mhartington/oceanic-next'
+
 
 call plug#end()
 
 syntax enable
 filetype plugin indent on
+colorscheme OceanicNext
 
-" colors
 if (has("termguicolors"))
-  set termguicolors
+    set termguicolors
 endif
-
-set background=dark
-colorscheme spacemacs-theme
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
+let g:deoplete#file#enable_buffer_path = 1
+let g:deoplete#auto_complete_start_length = 1
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.ocaml = '[.\w]+'
+let g:deoplete#omni#input_patterns.reason = '[.\w]+'
+
+" nerdtree
+map <C-z> :NERDTreeToggle<CR>
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'zenburn'
+let g:airline_theme = 'oceanicnext'
+
+" neoformat
+"
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * Neoformat
+augroup END
+
+let g:neoformat_enabled_python = ['yapf']
+let g:neoformat_enabled_javascript = ['prettier']
 
 " neomake
 let g:neomake_python_python_maker = {
     \ 'exe': 'python3',
     \ }
 
-let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_logfile=$HOME.'/.dotfiles/.nvim/log/neomake.log'
+let g:neomake_javascript_enabled_makers = ['flow']
 
 autocmd! BufWritePost * Neomake
+
+" javascript
+"
+let g:deoplete#sources#flow#flow_bin = 'flow'
+
+function! StrTrim(txt)
+  return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+endfunction
+
+let g:flow_path = StrTrim(system('PATH=$(npm bin):$PATH && which flow'))
+
+if g:flow_path != 'flow not found'
+  let g:deoplete#sources#flow#flow_bin = g:flow_path
+endif
+
+" vim-jsx
+
+let g:jsx_ext_required = 0
+
+" reason
+
+autocmd FileType reason map <buffer> <D-M> :ReasonPrettyPrint<Cr>
+
+let g:neomake_reason_enabled_makers = ['merlin']
+let g:vimreason_extra_args_expr_reason = '"--print-width 80"'
 
 " neosnippet
 
@@ -77,14 +130,9 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-
 " git gutter
 
 let g:gitgutter_updatetime = 250
-
-" autopep8
-let g:autopep8_disable_show_diff = 1
-autocmd BufWritePre *.py :Autopep8
 
 " ctrl p
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.git\|deps\|_build\|\v\.(o|hi)$'
@@ -106,8 +154,5 @@ set shiftwidth=4
 set expandtab
 set cc=80
 
-map <C-z> :NERDTreeToggle<CR>
-
 " elm
 let g:elm_format_autosave = 1
-nmap <silent> <C-z> :NERDTreeToggle<CR>

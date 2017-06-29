@@ -106,10 +106,8 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-  source '/Users/hanneslohmander/Downloads/google-cloud-sdk/path.zsh.inc'
-fi
-  source '/Users/hanneslohmander/Downloads/google-cloud-sdk/completion.zsh.inc'
-fi
+#  source '/Users/hanneslohmander/Downloads/google-cloud-sdk/path.zsh.inc'
+#  source '/Users/hanneslohmander/Downloads/google-cloud-sdk/completion.zsh.inc'
 
 if type nvim > /dev/null 2>&1; then
     alias vim='nvim'
