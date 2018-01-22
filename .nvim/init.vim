@@ -151,10 +151,11 @@ set splitright
 set backupcopy=yes
 set termguicolors
 set number
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
 set cc=80
+set conceallevel=0
 
 " elm
 let g:elm_format_autosave = 1
