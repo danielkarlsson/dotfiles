@@ -21,3 +21,6 @@ git config --global alias.s status
 git config --global alias.su 'submodule update --init --recursive'
 git config --global alias.a 'add -A'
 git config --global alias.cm 'commit -m'
+
+# Typora
+alias typora="open -a typora"
