@@ -106,8 +106,17 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-#  source '/Users/hanneslohmander/Downloads/google-cloud-sdk/path.zsh.inc'
-#  source '/Users/hanneslohmander/Downloads/google-cloud-sdk/completion.zsh.inc'
+source '/Users/danielkarlsson/Downloads/google-cloud-sdk/path.zsh.inc'
+source '/Users/danielkarlsson/Downloads/google-cloud-sdk/completion.zsh.inc'
 
 # yarn
 export PATH="$PATH:`yarn global bin`"
+
+# Add star user to ssh
+ssh-add ~/.ssh/id_rsa_star
+
+# Kill port
+killp() {
+  echo "Killing port $1"
+  kill -9 "$(lsof -t -i:$1)"
+}
